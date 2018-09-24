@@ -12,12 +12,21 @@
 <div id="word"></div>
 
     <script>
-
+        
         var playWords = ["TESTER", "GERRY"];
+        //pick random word from possible list of words
         var playWord = playWords[Math.floor(Math.random()*playWords.length)];
         //NEED TO REMOVE WORDS AFTER THEY ARE ALREADY USED 
 
-        alert("Press any letter to begin");
+        var numOfGuesses = 20;
+        var guessedLetters = [];
+
+        //TURN playWord into array with each CHAR from  it
+        var underscored = [];
+        var currentGameGuessWord = [];
+
+
+        //alert("Press any letter to begin");
         document.getElementById("word").textContent = playWord;
 
         function isLetter(str) {
@@ -31,7 +40,16 @@
                 alert("you entered a key that is not a letter")
             }
 
+
+//Is it in CURRENT_PLAY_WORD?
+//If no, then add it to GUESSED_LETTERS[]
+
+//If so, then search for CURRENT_PLAYING_VERSION, look for values that match the CURRENT PLAY WORD. Get those indexes, and then add the CURRENT PLAY LETTER to the proper index in UNDERSCORED VERSION…essentially transforming it…ALSO RUN (PLAY_SOUN() or CHANGE_SONG(), etc)
            
+//Until under_Versio is equal to currenbt_play_word OR number of guess left is 0
+
+//***ALLOW USER TO USE DROP DOWN TO PICK A THEME….WHICH WILL CHANGE STYLING AND WORD DATABASE
+
         
         }
 
