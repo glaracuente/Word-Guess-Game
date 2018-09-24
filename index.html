@@ -9,25 +9,28 @@
 </head>
 
 <body>
-<div id="word"></div>
+<div id="playWord"></div>
+<div id="underscored"></div>
+<div id="guessedLetters"></div>
 
     <script>
         
+        //Library of possible words for the game
         var playWords = ["TESTER", "GERRY"];
         //pick random word from possible list of words
         var playWord = playWords[Math.floor(Math.random()*playWords.length)]; //NEED TO REMOVE WORDS AFTER THEY ARE ALREADY USED 
         //turn playWord into an array where each element is a letter/char from the word
         playWord = playWord.split('');
 
-        
-
+        //set total nuber of possible guesses an reset array of guessed letters 
         var numOfGuesses = 20;
         var guessedLetters = [];
 
-        //TURN playWord into array with each CHAR from  it
+        //create array full of underscore chars...with lenght equal to playWord
         var underscored = [];
-        var currentGameGuessWord = [];
-
+        for (var i=0; i < playWord.length-1; i++){
+            underscored.push('_');
+        }
 
         //alert("Press any letter to begin");
         document.getElementById("word").textContent = playWord;
@@ -35,6 +38,14 @@
         function isLetter(str) {
             return str.length === 1 && str.match(/[a-z]/i);
         }
+        
+        //can you use ? in variable names in JS?
+        function indexOfGuess(str) {
+            return playWord.indexOf(str)
+        }
+
+// EVERYTHING BELOW NEEDS TO BE CONTROLLED BY WHILE LOOP
+//Until under_Version is equal to play_word OR number of guess left is 0
 
         document.onkeyup = function (event) {
             var userKey = event.key
@@ -43,14 +54,25 @@
                 alert("you entered a key that is not a letter")
             }
 
+            if //userKey is in the underscored array {
+                //alert that they already picked this letter
+            //}
 
-//Is it in CURRENT_PLAY_WORD?
-//If no, then add it to GUESSED_LETTERS[]
+            var indexKeeper = indexOfGuess(userKey)
+            if (indexKeeper === -1) { 
+                guessedLetters.push(userKey); //MAKE SURE DOM IS UPDATED
+                document.getElementById("guessedLetters").textContent = guessedLetters
+            }
+            else { 
+                underscored[indexKeeper] = playWord[indexKeeper];
+                document.getElementById("underscored").textContent = underscored
+                // ALSO PLAY SOUND OR CHANGE SONG HERE
+            }
 
-//If so, then search for CURRENT_PLAYING_VERSION, look for values that match the CURRENT PLAY WORD. Get those indexes, and then add the CURRENT PLAY LETTER to the proper index in UNDERSCORED VERSION…essentially transforming it…ALSO RUN (PLAY_SOUN() or CHANGE_SONG(), etc)
-           
-//Until under_Versio is equal to currenbt_play_word OR number of guess left is 0
+//NEED TO MOVE THIS ALL TO JS FILE
+//ALSO NEED TO TREAT THE GAME AS AN OBJECT 
 
+// BONUS
 //***ALLOW USER TO USE DROP DOWN TO PICK A THEME….WHICH WILL CHANGE STYLING AND WORD DATABASE
 
         
