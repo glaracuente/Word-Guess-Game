@@ -15,8 +15,11 @@
         
         var playWords = ["TESTER", "GERRY"];
         //pick random word from possible list of words
-        var playWord = playWords[Math.floor(Math.random()*playWords.length)];
-        //NEED TO REMOVE WORDS AFTER THEY ARE ALREADY USED 
+        var playWord = playWords[Math.floor(Math.random()*playWords.length)]; //NEED TO REMOVE WORDS AFTER THEY ARE ALREADY USED 
+        //turn playWord into an array where each element is a letter/char from the word
+        playWord = playWord.split('');
+
+        
 
         var numOfGuesses = 20;
         var guessedLetters = [];
