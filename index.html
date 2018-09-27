@@ -23,10 +23,9 @@
         var playWord = playWords[Math.floor(Math.random() * playWords.length)]; //NEED TO REMOVE WORDS AFTER THEY ARE ALREADY USED 
         //turn playWord into an array where each element is a letter/char from the word
         playWord = playWord.split('');
-        console.log(playWord)
 
         //set total nuber of possible guesses an reset array of guessed letters 
-        var numOfGuesses = 20;
+        var numOfGuesses = 5;
         var guessedLetters = [];
 
         //create array full of underscore chars...with lenght equal to playWord
@@ -35,7 +34,7 @@
             underscored.push('_');
         }
 
-        console.log(underscored)
+        
 
         function isLetter(str) {
             return str.length === 1 && str.match(/[a-z]/i);
@@ -46,14 +45,11 @@
             return playWord.indexOf(str);
         }
 
-         function updateDiv(div, str) {
+        function updateDiv(div, str) {
             document.getElementById(div).textContent = str;
         }
 
-        
 
-        // EVERYTHING BELOW NEEDS TO BE CONTROLLED BY WHILE LOOP
-        //Until under_Version is equal to play_word OR number of guess left is 0
         updateDiv("numOfGuesses", numOfGuesses);
         updateDiv("display", "Press any letter to begin!");
 
@@ -94,6 +90,12 @@
                     updateDiv("underscored", underscored);
 
                 }
+            }
+            console.log(playWord)
+
+            console.log(underscored)
+            if (underscored.equals(playWord) || numOfGuesses === 0) {
+                updateDiv("display", "game over");
             }
 
             //NEED TO MOVE THIS ALL TO JS FILE
