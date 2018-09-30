@@ -5,112 +5,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Fugaz+One" rel="stylesheet">
+    <title>Guess That Reggaeton Artist!</title>
 </head>
 
 <body>
-    <div id="playWord"></div>
-    <div id="underscored"></div>
-    <div id="guessedLetters"></div>
-    <div id="numOfGuesses"></div>
-    <div id="display"></div>
+    <header class="bg-light text-center text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    GUESS THAT REGGAEON ARTIST!
+                </div>
+            </div>
+        </div>
+    </header>
 
-    <script>
+    <div class="container text-center mt-3 p-4">
+        <div class="row">
+                <div class="col-sm">
+                    </div>
+            <div class="col-sm bg-secondary">
+                <div id="underscored"></div>
+            </div>
+        </div>
+        <div class="row">
+                <div class="col-sm">
+                    </div>
+            <div class="col-sm bg-secondary">
+                <div id="guessedLetters"></div>
+                <div id="numOfGuesses"></div>
+            </div>
+        </div>
+    </div>
 
-        //Library of possible words for the game
-        var playWords = ["TESTER", "GERRY"];
+    <footer class="footer text-center bg-dark text-white p-3 mt-3 fixed-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <span>WINS: </span><span id="wins"></span>
+                </div>
+                <div class="col-sm">
+                    <span>LOSSES: </span><span id="losses"></span>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-        //pick random word from possible list of words
-        var playWord = playWords[Math.floor(Math.random() * playWords.length)]; //NEED TO REMOVE WORDS AFTER THEY ARE ALREADY USED 
-        //turn playWord into an array where each element is a letter/char from the word
-        playWord = playWord.split('');
-
-        //set total nuber of possible guesses an reset array of guessed letters 
-        var numOfGuesses = 20;
-        var guessedLetters = [];
-
-        //create array full of underscore chars...with lenght equal to playWord
-        var underscored = [];
-        for (var i = 0; i < playWord.length; i++) {
-            underscored.push('_');
-        }
-
-        
-
-        function isLetter(str) {
-            return str.length === 1 && str.match(/[a-z]/i);
-        }
-
-        //can you use ? in variable names in JS? what is letter appears more than once in word
-        function indexOfGuess(str) {
-            return playWord.indexOf(str);
-        }
-
-        function updateDiv(div, str) {
-            document.getElementById(div).textContent = str;
-        }
-
-
-        updateDiv("numOfGuesses", numOfGuesses);
-        updateDiv("underscored", underscored.toString().replace(/,/g, '  '));
-        updateDiv("display", "Press any letter to begin!");
-
-        //$(document).ready(function() {
-
-        document.onkeyup = function (event) {
-            updateDiv("display", "");
-
-            var userKey = event.key.toUpperCase();
-
-            if (!isLetter(userKey)) {
-                return;
-            }
-
-            //if //userKey is in the underscored array {
-            //alert that they already picked this letter
-            //}
-
-            var indexKeeper = indexOfGuess(userKey);
-
-            if (indexKeeper === -1) {
-                if (guessedLetters.indexOf(userKey) === -1) {
-                    numOfGuesses--;
-                    updateDiv("numOfGuesses", numOfGuesses)
-                    guessedLetters.push(userKey);
-                    updateDiv("guessedLetters", guessedLetters)
-                }
-                else {
-                    updateDiv("display", "You've already guessed that letter");
-                }
-            }
-            else {
-                for (var i = 0; i < underscored.length; i++) {
-                    if (playWord[i] === userKey) {
-                        underscored[i] = playWord[i];
-                        // ALSO PLAY SOUND OR CHANGE SONG HERE
-                    }
-                    updateDiv("underscored", underscored.toString().replace(/,/g, '  '));
-
-                }
-            }
-            console.log(playWord)
-
-            console.log(underscored)
-            if (underscored.equals(playWord) || numOfGuesses === 0) {
-                updateDiv("display", "game over");
-            }
-
-            //NEED TO MOVE THIS ALL TO JS FILE
-            //ALSO NEED TO TREAT THE GAME AS AN OBJECT 
-
-            // BONUS
-            //***ALLOW USER TO USE DROP DOWN TO PICK A THEME….WHICH WILL CHANGE STYLING AND WORD DATABASE
-
-
-        }
-
-
-    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="assets/javascript/game.js"></script>
 </body>
 
 </html>
