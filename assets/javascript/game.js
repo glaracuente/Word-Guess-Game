@@ -1,4 +1,3 @@
-//Library of possible words for the game, which is shuffled at the beginning of every game
 var winAudio = new Audio('assets/sounds/win.mp3');
 var loseAudio = new Audio('assets/sounds/lose.mp3');
 
@@ -127,6 +126,4 @@ document.onkeyup = function (event) {
             startRound();
         }
     }
-
-
 }
