@@ -1,12 +1,16 @@
 //Library of possible words for the game, which is shuffled at the beginning of every game
+var winAudio = new Audio('assets/sounds/win.mp3');
+var loseAudio = new Audio('assets/sounds/lose.mp3');
+
 var playWords = ["BAD BUNNY", "DADDY YANKEE", "DON OMAR", "OZUNA", "PLAN B", "NICKY JAM"];
 shuffle(playWords);
 
 var playWord;
 var numOfGuesses;
-var guessedLetters;
+var guessedWrong;
 var underscored;
 var atStart = false;
+var atEnd = false;
 var wins = 0;
 var losses = 0;
 
@@ -34,7 +38,7 @@ function updateDiv(div, str) {
 
 function startRound() {
     numOfGuesses = 10;
-    guessedLetters = [];
+    guessedWrong = [];
     underscored = [];
     atStart = true;
     //pop a word out of the array
@@ -50,46 +54,51 @@ function startRound() {
         }
     }
 
-    console.log(underscored.toString().replace(/,/g, '  '))
-
-    updateDiv("numOfGuesses", numOfGuesses);
     updateDiv("underscored", underscored.toString().replace(/\s/g, '&nbsp;').replace(/,/g, ' '));
+    updateDiv("numOfGuesses", numOfGuesses);
+}
+
+function endGame() {
+    atEnd = true;
+    updateDiv("underscored", "Thanks for playing!");
+    updateDiv("guessedWrong", "");
+    updateDiv("numOfGuesses", "");
 }
 
 
+//THIS HAPPENS ON A PAGE REFRESH
 updateDiv("underscored", "Press any key to get started!");
 updateDiv("wins", wins.toString());
 updateDiv("losses", losses.toString());
 
+//KEYPRESS CODE
 document.onkeyup = function (event) {
+    var userKey = event.key.toUpperCase();
+
+    if (atEnd) {
+        return;
+    }
 
     if (!atStart) {
         startRound();
     }
 
-    var userKey = event.key.toUpperCase();
-    var indexKeeper = playWord.indexOf(userKey);
-
     if (!isLetter(userKey)) {
         return;
     }
 
-    if (indexKeeper === -1) {
-        if (guessedLetters.indexOf(userKey) === -1) {
+    if (playWord.indexOf(userKey) === -1) {
+        if (guessedWrong.indexOf(userKey) === -1) {
             numOfGuesses--;
             updateDiv("numOfGuesses", numOfGuesses)
-            guessedLetters.push(userKey);
-            updateDiv("guessedLetters", guessedLetters)
-        }
-        else {
-            updateDiv("playword", "You've already guessed that letter");
+            guessedWrong.push(userKey);
+            updateDiv("guessedWrong", guessedWrong)
         }
     }
     else {
         for (var i = 0; i < playWord.length; i++) {
             if (playWord[i] === userKey) {
                 underscored[i] = playWord[i];
-                // ALSO PLAY SOUND OR CHANGE SONG HERE
             }
             updateDiv("underscored", underscored.toString().replace(/,/g, '  '));
         }
@@ -98,13 +107,25 @@ document.onkeyup = function (event) {
     if (underscored.toString() === playWord.toString()) {
         wins++;
         updateDiv("wins", wins.toString());
-        startRound();
+        winAudio.play();
+        if (playWords.length === 0) {
+            endGame();
+        }
+        else {
+            startRound();
+        }
     }
 
     if (numOfGuesses === 0) {
         losses++;
         updateDiv("losses", losses.toString());
-        startRound();
+        loseAudio.play();
+        if (playWords.length === 0) {
+            endGame();
+        }
+        else {
+            startRound();
+        }
     }
 
 

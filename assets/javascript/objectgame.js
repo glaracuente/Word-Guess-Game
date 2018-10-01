@@ -1,19 +1,24 @@
-//Library of possible words for the game
-var playWords = ["TESTER", "GERRY"];
 
 function updateDiv(div, str) {
     document.getElementById(div).textContent = str;
 }
 
 var game = {
+    //Library of possible words for the game
+    playWords: ["TESTER", "GERRY"], //NEED TO REMOVE WORDS AFTER THEY ARE ALREADY USED 
     //pick random word from possible list of words
-    playWord: playWords[Math.floor(Math.random() * playWords.length)].split(''), //NEED TO REMOVE WORDS AFTER THEY ARE ALREADY USED 
-    //turn playWord into an array where each element is a letter/char from the word
-    //set total nuber of possible guesses an reset array of guessed letters 
-    numOfGuesses: 20,
+    //then turn playWord into an array where each element is a letter/char from the word
+    playWord: playWords[Math.floor(Math.random() * playWords.length)].split(''), 
+    //set total number of possible guesses
+    numOfGuesses: 10,
+    //array to hold letters already guessed
     guessedLetters: [],
     //create array full of underscore chars...with lenght equal to playWord
     underscored: [],
+    
+    for (var i = 0; i < playWord.length; i++) {
+        underscored.push('_');
+    }
    
    
     begin: function () {
@@ -32,9 +37,7 @@ function indexOfGuess(str) {
     return playWord.indexOf(str);
 }
 
-for (var i = 0; i < playWord.length; i++) {
-    underscored.push('_');
-}
+
 
 //$(document).ready(function() {
 document.onkeyup = function (event) {
