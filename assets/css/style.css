@@ -1,6 +1,7 @@
 body {
     background-image: url(../images/back.jpg);
     background-size: cover;
+    font-family: 'Fugaz One', cursive;
 }
 
 header {
@@ -21,6 +22,8 @@ footer {
     padding-top: 10px;
 }
 
-body {
-    font-family: 'Fugaz One', cursive;
+.display {
+    background-color: #c2c2c2;
 }
+
+
